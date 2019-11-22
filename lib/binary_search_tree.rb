@@ -38,4 +38,29 @@ class BinarySearchTree
     return depth
   end
 
+  def include?(score)
+    current_node = @root
+
+    loop do
+      if current_node.score == score
+        return true
+      else
+
+        if score < current_node.score
+          if current_node.left_child
+            current_node = current_node.left_child
+          else
+            return false
+          end
+        elsif score > current_node.score
+          if current_node.right_child
+            current_node = current_node.right_child
+          else
+            return false
+          end
+        end
+      end
+    end
+  end
+
 end

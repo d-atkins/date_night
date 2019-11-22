@@ -17,32 +17,32 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_node_has_title
-      tree = BinarySearchTree.new
-      tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
 
-      assert_equal "Bill & Ted's Excellent Adventure", tree.root.title
-    end
+    assert_equal "Bill & Ted's Excellent Adventure", tree.root.title
+  end
 
-    def test_node_has_score
-      tree = BinarySearchTree.new
-      tree.insert(61, "Bill & Ted's Excellent Adventure")
+  def test_node_has_score
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
 
-      assert_equal 61, tree.root.score
-    end
+    assert_equal 61, tree.root.score
+  end
 
-    def test_node_has_no_right_child
-      tree = BinarySearchTree.new
-      tree.insert(61, "Bill & Ted's Excellent Adventure")
+  def test_node_has_no_right_child
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
 
-      assert_nil tree.root.right_child
-    end
+    assert_nil tree.root.right_child
+  end
 
-    def test_node_has_no_left_child
-      tree = BinarySearchTree.new
-      tree.insert(61, "Bill & Ted's Excellent Adventure")
+  def test_node_has_no_left_child
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
 
-      assert_nil tree.root.left_child
-    end
+    assert_nil tree.root.left_child
+  end
 
   def test_first_right_child
     tree = BinarySearchTree.new
@@ -60,5 +60,27 @@ class BinarySearchTreeTest < Minitest::Test
 
     assert_instance_of Node, tree.root.left_child
   end
+
+  #test include?
+  def test_include
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(16, "Johnny English")
+
+    assert_equal true, tree.include?(16)
+  end
+
+  def test_does_not_include
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(16, "Johnny English")
+    require "pry"; binding.pry
+    assert_equal false, tree.include?(17)
+  end
+  #test depth_of
+  #test max
+  #test min
 
 end
