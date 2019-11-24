@@ -63,7 +63,6 @@ class BinarySearchTreeTest < Minitest::Test
 
   #test include?
   def test_include
-    skip
     tree = BinarySearchTree.new
     tree.insert(61, "Bill & Ted's Excellent Adventure")
     tree.insert(92, "Sharknado 3")
@@ -73,7 +72,6 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_does_not_include
-    skip
     tree = BinarySearchTree.new
     tree.insert(61, "Bill & Ted's Excellent Adventure")
     tree.insert(92, "Sharknado 3")

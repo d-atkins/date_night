@@ -44,16 +44,14 @@ class BinarySearchTree
   end
 
   def include?(score)
-    #invoke traverse on score -> store in t_node
-    #return true if t_node.score = score
-    #otherwise return false
 
-    node = traverse(score)
-    if node.nil? || node.score != score
-      false
-    elsif node.score == score
-      true
+    current_node = @root
+    while (!current_node.nil?) do
+      return true if current_node.score == score
+      current_node = take_step(current_node, score)
     end
+
+    return false
 
   end
 
