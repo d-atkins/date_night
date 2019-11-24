@@ -5,37 +5,58 @@ class BinarySearchTree
   def initialize
   end
 
-  def insert(score, title)
+  def take_step(current_node, score)
+
+    if score > current_node.score
+      return current_node.right_child
+    elsif score < current_node.score
+      return current_node.left_child
+    end
+
+  end
+
+  def insert(score, title=nil)
+
     node = Node.new(score, title)
-    current_node = @root
     depth = 0
-    if !@root
+
+    if @root.nil?
       @root = node
+      return depth
+
     else
-      depth += 1
+      parent_node = @root
+
       loop do
-        if node.score > current_node.score
-          if current_node.right_child
-            current_node = current_node.right_child
-            depth += 1
-          else
-            current_node.set_right(node)
-            break
-          end
-        elsif node.score < current_node.score
-          if current_node.left_child
-            current_node = current_node.left_child
-            depth += 1
-          else
-            current_node.set_left(node)
-            break
-          end
+        next_node = take_step(parent_node, score)
+        if (next_node.nil?)
+          parent_node.set_child(node) if !title.nil?
+          depth += 1
+          return depth
         else
-          break
+          depth += 1
+          parent_node = next_node
         end
       end
+
     end
-    return depth
+
+  end
+
+  def include?(score)
+
+    current_node = @root
+    while (!current_node.nil?) do
+      return true if current_node.score == score
+      current_node = take_step(current_node, score)
+    end
+
+    return false
+
+  end
+
+  def depth_of(score)
+    return insert(score)
   end
 
 end
