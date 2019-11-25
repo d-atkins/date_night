@@ -16,13 +16,17 @@ class BinarySearchTreeTest < Minitest::Test
     assert_instance_of BinarySearchTree, @tree
   end
 
+  def test_empty_tree_has_nil_root
+    tree = BinarySearchTree.new
+    assert_nil tree.root
+  end
+
   def test_insert_returns_correct_depth
     tree = BinarySearchTree.new
     assert_equal 0, tree.insert(61, "Bill & Ted's Excellent Adventure")
     assert_equal 1, tree.insert(16, "Johnny English")
     assert_equal 1, tree.insert(92, "Sharknado 3")
     assert_equal 2, tree.insert(50, "Hannibal Buress: Animal Furnace")
-
   end
 
   def test_root_is_node
@@ -37,31 +41,36 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 61, @tree.root.info[:score]
   end
 
-  def test_node_has_no_right_child
-    assert_nil @tree.root.right_child.right_child
+  def test_root_has_no_children
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    assert_nil tree.root.right_child
+    assert_nil tree.root.left_child
   end
 
-  def test_node_has_no_left_child
-    assert_nil @tree.root.right_child.left_child
+  def test_child_has_no_children
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    assert_nil tree.root.left_child.right_child
+    assert_nil tree.root.left_child.left_child
   end
 
-  def test_first_right_child
-    assert_instance_of Node, @tree.root.right_child
-    assert_equal "Sharknado 3", @tree.root.right_child.info[:title]
-    assert_equal 92, @tree.root.right_child.info[:score]
-  end
-
-  def test_first_left_child
+  def test_children_of_root_are_nodes
     assert_instance_of Node, @tree.root.left_child
-    assert_equal "Johnny English", @tree.root.left_child.info[:title]
-    assert_equal 16, @tree.root.left_child.info[:score]
+    assert_instance_of Node, @tree.root.right_child
+  end
+
+  def test_children_of_root
+    expected = {title: "Johnny English", score: 16}
+    assert_equal expected, @tree.root.left_child.info
+
+    expected = {title: "Sharknado 3", score: 92}
+    assert_equal expected, @tree.root.right_child.info
   end
 
   def test_include
     assert_equal true, @tree.include?(16)
-  end
-
-  def test_does_not_include
     assert_equal false, @tree.include?(17)
   end
 
