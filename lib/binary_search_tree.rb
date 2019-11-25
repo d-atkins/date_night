@@ -91,4 +91,27 @@ class BinarySearchTree
 
   end
 
+  def sort(current_node = root)
+    sorted_list = []
+    title = current_node.info[:title]
+    score = current_node.info[:score]
+    element = {title => score}
+
+    if !(current_node.left_child || current_node.right_child)
+      return element
+    end
+
+    if current_node.left_child
+      sorted_list << sort(current_node.left_child)
+
+    end
+
+    if current_node.right_child
+      sorted_list << element
+      sorted_list << sort(current_node.right_child)
+    end
+
+    return sorted_list.flatten
+  end
+
 end
