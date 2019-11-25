@@ -90,4 +90,10 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal expected, @tree.min
   end
 
+  def test_sort
+    expected = [{"Johnny English"=>16}, {"Hannibal Buress: Animal Furnace"=>50}, {"Bill & Ted's Excellent Adventure"=>61}, {"Sharknado 3"=>92}]
+
+    assert_equal expected, @tree.sort
+  end
+
 end
