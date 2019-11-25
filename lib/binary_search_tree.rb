@@ -64,24 +64,30 @@ class BinarySearchTree
   def max
 
     current_node = @root
-    if !@root.nil?
-      while (!current_node.right_child.nil?)
-        current_node = current_node.right_child
-      end
+    return current_node if @root.nil?
+
+    while (!current_node.right_child.nil?)
+      current_node = current_node.right_child
     end
-    return current_node
+
+    title = current_node.info[:title]
+    score = current_node.info[:score]
+    return {title => score}
 
   end
 
   def min
 
     current_node = @root
-    if !@root.nil?
-      while (!current_node.left_child.nil?)
-        current_node = current_node.left_child
-      end
+    return current_node if @root.nil?
+
+    while (!current_node.left_child.nil?)
+      current_node = current_node.left_child
     end
-    return current_node
+
+    title = current_node.info[:title]
+    score = current_node.info[:score]
+    return {title => score}
 
   end
 

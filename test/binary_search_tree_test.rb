@@ -71,11 +71,14 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
 
-  # def test_max
-  #   expected = #rewrite
-  #   assert_equal expected, #rewrite
-  # end
+  def test_max
+    expected = {"Sharknado 3" => 92}
+    assert_equal expected, @tree.max
+  end
 
-  #test min
+  def test_min
+    expected = {"Johnny English"=>16}
+    assert_equal expected, @tree.min
+  end
 
 end
