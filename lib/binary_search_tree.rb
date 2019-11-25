@@ -7,9 +7,9 @@ class BinarySearchTree
 
   def take_step(current_node, score)
 
-    if score > current_node.score
+    if score > current_node.info[:score]
       return current_node.right_child
-    elsif score < current_node.score
+    elsif score < current_node.info[:score]
       return current_node.left_child
     end
 
@@ -30,8 +30,10 @@ class BinarySearchTree
       loop do
         next_node = take_step(parent_node, score)
         if (next_node.nil?)
-          parent_node.set_child(node) if !title.nil?
-          depth += 1
+          if !title.nil?
+            parent_node.set_child(node)
+            depth += 1
+          end
           return depth
         else
           depth += 1
@@ -47,7 +49,7 @@ class BinarySearchTree
 
     current_node = @root
     while (!current_node.nil?) do
-      return true if current_node.score == score
+      return true if current_node.info[:score] == score
       current_node = take_step(current_node, score)
     end
 
@@ -57,6 +59,30 @@ class BinarySearchTree
 
   def depth_of(score)
     return insert(score)
+  end
+
+  def max
+
+    current_node = @root
+    if !@root.nil?
+      while (!current_node.right_child.nil?)
+        current_node = current_node.right_child
+      end
+    end
+    return current_node
+
+  end
+
+  def min
+
+    current_node = @root
+    if !@root.nil?
+      while (!current_node.left_child.nil?)
+        current_node = current_node.left_child
+      end
+    end
+    return current_node
+
   end
 
 end
