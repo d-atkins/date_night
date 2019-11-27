@@ -33,6 +33,8 @@ class BinarySearchTree
           if !title.nil?
             parent_node.set_child(node)
             depth += 1
+          elsif parent_node.info[:score] != score
+            depth += 1
           end
           return depth
         else
