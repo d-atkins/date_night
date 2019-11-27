@@ -33,6 +33,8 @@ class BinarySearchTree
           if !title.nil?
             parent_node.set_child(node)
             depth += 1
+          elsif parent_node.info[:score] != score
+            depth += 1
           end
           return depth
         else
@@ -103,7 +105,7 @@ class BinarySearchTree
 
     if current_node.left_child
       sorted_list << sort(current_node.left_child)
-
+      sorted_list << element if !current_node.right_child
     end
 
     if current_node.right_child
@@ -112,6 +114,19 @@ class BinarySearchTree
     end
 
     return sorted_list.flatten
+  end
+
+  def load
+
+    file = File.open("movies.txt")
+    file_data = file.readlines.map(&:chomp)
+    file.close
+
+    file_data.each do |line|
+      split_line = line.split(%r{,\s*})
+      insert(split_line[0].to_i, split_line[1])
+    end
+
   end
 
 end
