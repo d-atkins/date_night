@@ -96,4 +96,12 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal expected, @tree.sort
   end
 
+  def test_load
+    tree = BinarySearchTree.new
+    tree.load
+    require "pry"; binding.pry
+
+    assert_equal 34, tree.root.info[:score]
+  end
+
 end
