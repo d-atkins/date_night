@@ -2,8 +2,6 @@ require './lib/node'
 
 class BinarySearchTree
   attr_reader :root
-  def initialize
-  end
 
   def take_step(current_node, score)
 
@@ -23,10 +21,8 @@ class BinarySearchTree
     if @root.nil?
       @root = node
       return depth
-
     else
       parent_node = @root
-
       loop do
         next_node = take_step(parent_node, score)
         if (next_node.nil?)
@@ -42,7 +38,6 @@ class BinarySearchTree
           parent_node = next_node
         end
       end
-
     end
 
   end
@@ -50,7 +45,8 @@ class BinarySearchTree
   def include?(score)
 
     current_node = @root
-    while (!current_node.nil?) do
+
+    while (!current_node.nil?)
       return true if current_node.info[:score] == score
       current_node = take_step(current_node, score)
     end
@@ -60,7 +56,9 @@ class BinarySearchTree
   end
 
   def depth_of(score)
+
     return insert(score)
+
   end
 
   def max
@@ -94,6 +92,7 @@ class BinarySearchTree
   end
 
   def sort(current_node = root)
+
     sorted_list = []
     title = current_node.info[:title]
     score = current_node.info[:score]
@@ -114,6 +113,7 @@ class BinarySearchTree
     end
 
     return sorted_list.flatten
+
   end
 
   def load
@@ -126,6 +126,48 @@ class BinarySearchTree
       split_line = line.split(%r{,\s*})
       insert(split_line[0].to_i, split_line[1])
     end
+
+  end
+
+  def nodes_at_depth(depth, current_node = @root)
+
+    is_leaf = !(current_node.left_child || current_node.right_child)
+    depth_reached = (depth_of(current_node.info[:score]) == depth)
+    depth_nodes = []
+
+    if depth_reached || is_leaf
+      return [current_node] if depth_reached
+
+    else
+
+      if current_node.left_child
+        depth_nodes << nodes_at_depth(depth, current_node.left_child)
+      end
+
+      if current_node.right_child
+        depth_nodes << nodes_at_depth(depth, current_node.right_child)
+      end
+
+    end
+
+    return depth_nodes.flatten
+
+  end
+
+  def health(depth)
+
+    depth_nodes = nodes_at_depth(depth)
+    tree_count = sort.count
+    health_array = []
+
+    depth_nodes.each do |node|
+      a = node.info[:score]
+      b = sort(node).count
+      c = ((b.to_f / tree_count) * 100).floor
+      health_array << [a, b, c]
+    end
+
+    return health_array
 
   end
 
