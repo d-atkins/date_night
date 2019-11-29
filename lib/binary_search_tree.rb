@@ -171,4 +171,37 @@ class BinarySearchTree
 
   end
 
+  def leaf_nodes(current_node = @root)
+
+    leaves = []
+
+    if !(current_node.left_child || current_node.right_child)
+      return current_node
+    end
+
+    if current_node.left_child
+      leaves << leaf_nodes(current_node.left_child)
+    end
+
+    if current_node.right_child
+      leaves << leaf_nodes(current_node.right_child)
+    end
+
+    return leaves.flatten
+
+  end
+
+  def leaves
+    return leaf_nodes.count
+  end
+
+  def height
+    height = 0
+    leaf_nodes.each do |leaf|
+      depth = depth_of(leaf.info[:score])
+      height = depth if depth > height
+    end
+    return height
+  end
+
 end
