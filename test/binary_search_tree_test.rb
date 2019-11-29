@@ -11,6 +11,14 @@ class BinarySearchTreeTest < Minitest::Test
     @tree.insert(92, "Sharknado 3")
     @tree.insert(50, "Hannibal Buress: Animal Furnace")
 
+    @tree2 = BinarySearchTree.new
+    @tree2.insert(98, "Animals United")
+    @tree2.insert(58, "Armageddon")
+    @tree2.insert(36, "Bill & Ted's Bogus Journey")
+    @tree2.insert(93, "Bill & Ted's Excellent Adventure")
+    @tree2.insert(86, "Charlie's Angels")
+    @tree2.insert(38, "Charlie's Country")
+    @tree2.insert(69, "Collateral Damage")
   end
 
   def test_it_exists
@@ -106,18 +114,19 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_health
-    tree = BinarySearchTree.new
-    tree.insert(98, "Animals United")
-    tree.insert(58, "Armageddon")
-    tree.insert(36, "Bill & Ted's Bogus Journey")
-    tree.insert(93, "Bill & Ted's Excellent Adventure")
-    tree.insert(86, "Charlie's Angels")
-    tree.insert(38, "Charlie's Country")
-    tree.insert(69, "Collateral Damage")
+    assert_equal [[98, 7, 100]], @tree2.health(0)
+    assert_equal [[58, 6, 85]], @tree2.health(1)
+    assert_equal [[36, 2, 28], [93, 3, 42]], @tree2.health(2)
+  end
 
-    assert_equal [[98, 7, 100]] ,tree.health(0)
-    assert_equal [[58, 6, 85]], tree.health(1)
-    assert_equal [[36, 2, 28], [93, 3, 42]], tree.health(2)
+  def test_leaves
+    assert_equal 2, @tree.leaves
+    assert_equal 2, @tree2.leaves
+  end
+
+  def test_height
+    assert_equal 2, @tree.height
+    assert_equal 4, @tree2.height
   end
 
 end
